@@ -1,0 +1,7 @@
+{
+  "url": "https://chatman-replay-us-east-1.pscp.tv/chatapi/v1/history",
+  "access_token": "2tuu69MZTRL1HS8zMtJ2g3_J7e-L2jJuWvj6IvYNsT7p6MY8lT_LIr9hPWdhvABwKZZEcl-1x77K8sjkyR6ccMPVIv3MN3AZ0l3f7WGWdqeZjeSDQe-w8R1QJmOu_NaRwbBN5_RTmD_aVsoujrxjr3pZoG1U97DXdOz9R71cakYzYGXPK9VBJl0lp0E9BeYhjVshpevAE6Dcospb7q6xpCyV8EKAJPQ2LohnyLdFvaw6iPeMlsMA_-Ey00LxmWE6xKpaNRwNpAIYipUL7km8h6wwXyAHa7G8OWIX18erOrq0o1w",
+  "cursor": "",
+  "limit": 1000,
+  "since": 0
+}

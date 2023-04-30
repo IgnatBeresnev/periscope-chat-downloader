@@ -1,0 +1,21 @@
+{
+  "subscriber": "",
+  "publisher": "",
+  "auth_token": "-",
+  "signer_key": "MIIBPzCB7qADAgECAhBLhqKc1s1aS1ZJIrtd5ckJMAoGCCqGSM49BAMCMBcxFTATBgNVBAoTDFBlcmlzY29wZSBDbzAeFw0xNjA0MjIxOTQ2MjFaFw0xNjA1MjIxOTQ2MjFaMBcxFTATBgNVBAoTDFBlcmlzY29wZSBDbzBOMBAGByqGSM49AgEGBSuBBAAhAzoABOAmaz/KpIDJiw1x2HYjvZY9HsLyttPOPBJcEjiOK35Id1pTjmnLwqq8YX97+bKzGqRnN4WJETWfoycwJTAOBgNVHQ8BAf8EBAMCAqQwEwYDVR0lBAwwCgYIKwYBBQUHAwEwCgYIKoZIzj0EAwIDQAAwPQIdANIbJvIiiBVkvIUBKg2RpEp1xzuoL1DAD5fcy60CHGptu/TYVpNIdcVfqtMhd2uc8RfmvJA/TgKI4mw=",
+  "signer_token": "-",
+  "channel": "-",
+  "should_verify_signature": false,
+  "access_token": "2tuu69MZTRL1HS8zMtJ2g3_J7e-L2jJuWvj6IvYNsT7p6MY8lT_LIr9hPWdhvABwKZZEcl-1x77K8sjkyR6ccMPVIv3MN3AZ0l3f7WGWdqeZjeSDQe-w8R1QJmOu_NaRwbBN5_RTmD_aVsoujrxjr3pZoG1U97DXdOz9R71cakYzYGXPK9VBJl0lp0E9BeYhjVshpevAE6Dcospb7q6xpCyV8EKAJPQ2LohnyLdFvaw6iPeMlsMA_-Ey00LxmWE6xKpaNRwNpAIYipUL7km8h6wwXyAHa7G8OWIX18erOrq0o1w",
+  "endpoint": "https://chatman-replay-us-east-1.pscp.tv",
+  "replay_access_token": "2tuu69MZTRL1HS8zMtJ2g3_J7e-L2jJuWvj6IvYNsT7p6MY8lT_LIr9hPWdhvABwKZZEcl-1x77K8sjkyR6ccMPVIv3MN3AZ0l3f7WGWdqeZjeSDQe-w8R1QJmOu_NaRwbBN5_RTmD_aVsoujrxjr3pZoG1U97DXdOz9R71cakYzYGXPK9VBJl0lp0E9BeYhjVshpevAE6Dcospb7q6xpCyV8EKAJPQ2LohnyLdFvaw6iPeMlsMA_-Ey00LxmWE6xKpaNRwNpAIYipUL7km8h6wwXyAHa7G8OWIX18erOrq0o1w",
+  "replay_endpoint": "https://chatman-replay-us-east-1.pscp.tv",
+  "room_id": "1ypKdNrmERQJW",
+  "participant_index": 0,
+  "read_only": true,
+  "should_log": false,
+  "chan_perms": {
+    "pb": 0,
+    "cm": 15
+  }
+}
