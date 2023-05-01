@@ -1,3 +1,3 @@
 
-rootProject.name = "kotlin-one-time-scripts"
+rootProject.name = "periscope-chat-downloader"
 
