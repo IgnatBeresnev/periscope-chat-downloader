@@ -25,10 +25,12 @@ class SingleBroadcastChatDownloader(
     // 3. Make a post request to get chat history: https://chatman-replay-us-east-1.pscp.tv/chatapi/v1/history
     // 4. Keep making history post requests with sliding "cursor" that you get from the history response
     suspend fun download() {
-        println("Getting chat token")
+        println("Starting download of broadcast $broadcastId")
+
+        println("-- Getting the chat token")
         val chatToken = getChatToken()
 
-        println("Getting chat history credentials")
+        println("-- Getting chat history credentials")
         val (historyEndpoint, token) = getChatHistoryCredentials(chatToken)
 
         val historyRequest = HistoryRequest(
@@ -39,12 +41,16 @@ class SingleBroadcastChatDownloader(
             url = historyEndpoint
         )
 
+        var index = 0
         var currentRequest: HistoryRequest = historyRequest
         do {
-            println("Making a history request with cursor=${currentRequest.cursor.or("0")}")
-            val historyResponse = getHistory(currentRequest)
+            println("-- Chat history request #${index}")
+            val historyResponse = getHistory(index++, currentRequest)
             currentRequest = currentRequest.copy(cursor = historyResponse.cursor)
         } while (historyResponse.messages.isNotEmpty())
+
+        println("Finished downloading files for broadcast $broadcastId")
+        println("--------------------------")
     }
 
     private suspend fun getChatToken(): String {
@@ -66,11 +72,11 @@ class SingleBroadcastChatDownloader(
         return endpoint to response.accessToken
     }
 
-    private suspend fun getHistory(request: HistoryRequest): HistoryResponse {
+    private suspend fun getHistory(index: Int, request: HistoryRequest): HistoryResponse {
         return httpClient.jsonPostRequest<HistoryRequest, HistoryResponse>(
             url = request.url,
             body = request,
-            dumpResponseTo = broadcastOutDir.resolve("history-${request.cursor.or("0")}.json")
+            dumpResponseTo = broadcastOutDir.resolve("history-$index.json")
         )
     }
 }

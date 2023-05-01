@@ -4,12 +4,26 @@ import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import java.io.File
 
+private const val VERSION = "1.0" // easier than trying to version jars
+
 suspend fun main(args: Array<String>) {
+    if (args.contains("-v") || args.contains("--version")) {
+        printVersionHeader()
+        return
+    }
     require(args.size == 2) {
         "Expected two arguments: a file with broadcast URLs and an output directory path"
     }
+
     val broadcastUrls = parseBroadcastUrls(args[0])
     val outputDirectory = parseOutputDirectory(args[1])
+
+    printVersionHeader()
+    println(System.lineSeparator())
+    println("Starting the download for ${broadcastUrls.size} broadcasts.")
+    println("Will dump files to $outputDirectory")
+    println("--------------------------")
+
     val (successfullyDumpedUrls, failedUrls) = downloadBroadcastChatHistories(
         broadcastUrls = broadcastUrls,
         outDir = outputDirectory
@@ -20,11 +34,18 @@ suspend fun main(args: Array<String>) {
     dumpBroadcastsToFile(failedUrls, outputDirectory.resolve("failed.txt"))
 }
 
+private fun printVersionHeader() {
+    println("##########################################################")
+    println("###       Periscope chat downloader version $VERSION        ###")
+    println("### github.com/IgnatBeresnev/periscope-chat-downloader ###")
+    println("##########################################################")
+}
+
 private fun parseBroadcastUrls(filePath: String): List<String> {
     val broadcastUrls = File(filePath).absoluteFile.also {
         require(it.exists()) { "Expected the first argument to be a file file with broadcast URLs: $it" }
         require(!it.isDirectory) { "Expected the file with broadcast URls to not be a directory: $it" }
-    }.readLines()
+    }.readLines().filter { it.isNotBlank() }
 
     require(broadcastUrls.isNotEmpty()) {
         "Expected the file with broadcast URLs to not be empty"
