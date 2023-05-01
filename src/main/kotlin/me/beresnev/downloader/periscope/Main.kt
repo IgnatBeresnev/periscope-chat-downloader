@@ -42,10 +42,15 @@ private fun printVersionHeader() {
 }
 
 private fun parseBroadcastUrls(filePath: String): List<String> {
-    val broadcastUrls = File(filePath).absoluteFile.also {
+    val broadcastsFile = File(filePath).absoluteFile.also {
         require(it.exists()) { "Expected the first argument to be a file file with broadcast URLs: $it" }
         require(!it.isDirectory) { "Expected the file with broadcast URls to not be a directory: $it" }
-    }.readLines().filter { it.isNotBlank() }
+    }
+
+    val broadcastUrls = broadcastsFile
+        .readLines()
+        .filter { it.isNotBlank() }
+        .distinct()
 
     require(broadcastUrls.isNotEmpty()) {
         "Expected the file with broadcast URLs to not be empty"
