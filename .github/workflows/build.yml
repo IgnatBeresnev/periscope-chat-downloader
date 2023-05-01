@@ -1,0 +1,30 @@
+name: build
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 1 * *' # every month on 1st to always have fresh artifacts
+
+jobs:
+  fatjar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 8
+          cache: 'maven'
+      - name: Build
+      - uses: gradle/gradle-build-action@v2
+        with:
+          gradle-home-cache-cleanup: true
+          arguments: clean build shadowJar --stacktrace
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: periscope-chat-downloader
+          path: build/libs/periscope-chat-downloader.jar
+          retention-days: 31
