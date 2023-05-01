@@ -38,6 +38,8 @@ dependencies {
     implementation("io.ktor:ktor-client-core:2.3.0")
     implementation("io.ktor:ktor-client-cio:2.3.0")
 
+    implementation("org.jsoup:jsoup:1.16.1")
+
     // silence warning message, don't need logging
     implementation("org.slf4j:slf4j-nop:1.7.36")
 

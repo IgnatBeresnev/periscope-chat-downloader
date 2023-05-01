@@ -25,7 +25,7 @@ class SingleBroadcastChatDownloader(
     // 3. Make a post request to get chat history: https://chatman-replay-us-east-1.pscp.tv/chatapi/v1/history
     // 4. Keep making history post requests with sliding "cursor" that you get from the history response
     suspend fun download() {
-        println("Starting download of broadcast $broadcastId")
+        println("Starting download of broadcast with id $broadcastId")
 
         println("-- Getting the chat token")
         val chatToken = getChatToken()

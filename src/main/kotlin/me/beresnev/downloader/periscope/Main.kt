@@ -2,9 +2,12 @@ package me.beresnev.downloader.periscope
 
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
+import org.jsoup.Jsoup
 import java.io.File
+import java.net.URL
+import java.util.concurrent.TimeUnit
 
-private const val VERSION = "1.0" // easier than trying to version jars
+private const val VERSION = "1.0.0" // easier than trying to version jars
 
 suspend fun main(args: Array<String>) {
     if (args.contains("-v") || args.contains("--version")) {
@@ -18,6 +21,7 @@ suspend fun main(args: Array<String>) {
     val broadcastUrls = parseBroadcastUrls(args[0])
     val outputDirectory = parseOutputDirectory(args[1])
 
+    println(System.lineSeparator())
     printVersionHeader()
     println(System.lineSeparator())
     println("Starting the download for ${broadcastUrls.size} broadcasts.")
@@ -29,6 +33,10 @@ suspend fun main(args: Array<String>) {
         outDir = outputDirectory
     )
 
+    println("Finished dumping periscope chat history:")
+    println("* Successfully dumped broadcasts: ${successfullyDumpedUrls.size}")
+    println("* Failed: ${failedUrls.size}")
+
     dumpBroadcastsToFile(broadcastUrls, outputDirectory.resolve("input.txt"))
     dumpBroadcastsToFile(successfullyDumpedUrls, outputDirectory.resolve("success.txt"))
     dumpBroadcastsToFile(failedUrls, outputDirectory.resolve("failed.txt"))
@@ -36,7 +44,7 @@ suspend fun main(args: Array<String>) {
 
 private fun printVersionHeader() {
     println("##########################################################")
-    println("###       Periscope chat downloader version $VERSION        ###")
+    println("###      Periscope chat downloader version $VERSION       ###")
     println("### github.com/IgnatBeresnev/periscope-chat-downloader ###")
     println("##########################################################")
 }
@@ -89,24 +97,55 @@ suspend fun downloadBroadcastChatHistories(
     val failedUrls = mutableListOf<String>()
 
     val httpClient = HttpClient(CIO)
-    broadcastUrls.forEach { broadcast ->
-        val broadcastId = broadcast.substringAfterLast("/")
+    broadcastUrls.forEachIndexed { index, broadcastUrl ->
+        println("Processing broadcast #$index/${broadcastUrls.size}; URL: $broadcastUrl")
         try {
+            val broadcastId = resolveUrlToId(broadcastUrl)
             SingleBroadcastChatDownloader(
                 httpClient = httpClient,
                 broadcastId = broadcastId,
                 broadcastOutDir = outDir.resolve(broadcastId).also {
-                    check(it.mkdir()) { "Unable to create an output directory for broadcast $broadcastId" }
+                    check(it.mkdir()) { "Unable to create an output directory for broadcastUrl $broadcastId" }
                 }
             ).download()
         } catch (e: Exception) {
-            println("Unable to download broadcast $broadcastId: ${e.message}")
-            failedUrls.add(broadcast)
+            println("Unable to download broadcast $broadcastUrl:")
+            e.printStackTrace(System.out) // Avoid system.err because messages can be out of sync with system.out
+
+            failedUrls.add(broadcastUrl)
         }
     }
 
     val successfullyDumpedUrls = (broadcastUrls.minus(failedUrls.toSet()))
     return successfullyDumpedUrls to failedUrls
+}
+
+/**
+ * Some URLs are very long for some reason. However, once you open it in your browser,
+ * you'll get redirected to a shorter URL that contains the broadcast id in it.
+ *
+ * Example: `https://www.pscp.tv/w/aLdqjTY0NDI0NHwxTVl4TnJkWmxreXh3gPBLn2M1B4cniqyW4AgrGnOosIVEe4YeJywT-uzS8c8=`
+ *
+ * Will get resolved to: `https://www.pscp.tv/w/1vAGRbpaPAkGl`
+ *
+ * @return id of the broadcast that can be used in API queries, such as `1vAGRbpaPAkGl`
+ */
+private fun resolveUrlToId(url: String): String {
+    try {
+        val resolvedUrl = Jsoup.parse(URL(url), TimeUnit.SECONDS.toMillis(10).toInt())
+            .select("head > link[data-react-helmet=true]")
+            .firstOrNull()
+            ?.attr("href")
+            ?: error("Did not find the expected HTML element on the given page: head > link[data-react-helmet=true]")
+
+        if (url != resolvedUrl) {
+            println("Resolved URL to $resolvedUrl")
+        }
+        return resolvedUrl.substringAfterLast("/")
+    } catch (e: Exception) {
+        println("Unable to resolve URL $url")
+        throw e
+    }
 }
 
 /**
