@@ -1,0 +1,53 @@
+
+
+##########################################################
+###      Periscope chat downloader version 1.0.0       ###
+### github.com/IgnatBeresnev/periscope-chat-downloader ###
+##########################################################
+
+
+Starting the download for 2 broadcasts.
+Will dump files to /home/ignat/IdeaProjects/periscope-chat-downloader/examples/download/chatlogs
+--------------------------
+Processing broadcast #1/2; URL: https://www.pscp.tv/ByronBernstein/1lPKqwmwQvAJb
+Starting download of broadcast with id 1lPKqwmwQvAJb
+-- Getting the chat token
+-- Getting chat history credentials
+-- Chat history request #0
+-- Chat history request #1
+-- Chat history request #2
+-- Chat history request #3
+-- Chat history request #4
+-- Chat history request #5
+-- Chat history request #6
+-- Chat history request #7
+-- Chat history request #8
+-- Chat history request #9
+-- Chat history request #10
+-- Chat history request #11
+-- Chat history request #12
+-- Chat history request #13
+Finished downloading files for broadcast 1lPKqwmwQvAJb
+--------------------------
+Processing broadcast #2/2; URL: https://www.pscp.tv/ByronBernstein/1gqxvOrDWmnKB
+Starting download of broadcast with id 1gqxvOrDWmnKB
+-- Getting the chat token
+-- Getting chat history credentials
+-- Chat history request #0
+-- Chat history request #1
+-- Chat history request #2
+-- Chat history request #3
+-- Chat history request #4
+-- Chat history request #5
+-- Chat history request #6
+-- Chat history request #7
+-- Chat history request #8
+-- Chat history request #9
+-- Chat history request #10
+-- Chat history request #11
+-- Chat history request #12
+Finished downloading files for broadcast 1gqxvOrDWmnKB
+--------------------------
+Finished dumping periscope chat history:
+* Successfully dumped broadcasts: 2
+* Failed: 0

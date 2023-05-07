@@ -98,7 +98,7 @@ suspend fun downloadBroadcastChatHistories(
 
     val httpClient = HttpClient(CIO)
     broadcastUrls.forEachIndexed { index, broadcastUrl ->
-        println("Processing broadcast #$index/${broadcastUrls.size}; URL: $broadcastUrl")
+        println("Processing broadcast #${index + 1}/${broadcastUrls.size}; URL: $broadcastUrl")
         try {
             val broadcastId = resolveUrlToId(broadcastUrl)
             SingleBroadcastChatDownloader(
