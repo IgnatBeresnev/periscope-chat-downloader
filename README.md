@@ -47,7 +47,7 @@ The paths can be both absolute and relative.
 ### Example
 
 You see an example of running the downloader, its log output and the output files it generates
-in the [examples directory](examples).
+in the [examples directory](examples/download).
 
 ## Output files
 
