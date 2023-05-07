@@ -86,4 +86,4 @@ ignat@workstation> java -jar periscope-chat-downloader.jar -v
 
 [1]: https://github.com/IgnatBeresnev/periscope-chat-downloader/actions?query=branch%3Amaster
 [2]: https://github.com/IgnatBeresnev/periscope-chat-downloader/releases
-[3]: https://github.com/IgnatBeresnev/periscope-chat-downloader/releases
+[3]: https://github.com/IgnatBeresnev/periscope-chat-downloader/releases/download/1.0.0/periscope-chat-downloader.jar
